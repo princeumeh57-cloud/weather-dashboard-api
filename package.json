@@ -1,0 +1,7 @@
+{
+  "name": "weather-dashboard-api",
+  "version": "1.0.0",
+  "description": "A simple API backend proxy for weather data fetching",
+  "private": true,
+  "license": "MIT"
+}

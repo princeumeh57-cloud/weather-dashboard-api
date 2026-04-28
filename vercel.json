@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "name": "weather-dashboard-api",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/index" }
+  ],
+  "trailingSlash": false
+}
