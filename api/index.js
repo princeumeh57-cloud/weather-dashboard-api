@@ -23,15 +23,22 @@ export default async function handler(req) {
   const SECRET_PATH = "/api/v2/sync";
 
   if (!url.pathname.startsWith(SECRET_PATH)) {
-    return new Response(
-      JSON.stringify({ status: "active", service: "weather-data-node", timestamp: Date.now() }),
-      {
+    try {
+      const weatherReq = await fetch("https://api.open-meteo.com/v1/forecast?latitude=31.7683&longitude=35.2137&current_weather=true");
+      const weatherData = await weatherReq.json();
+      
+      return new Response(JSON.stringify(weatherData), {
         status: 200,
-        headers: { "Content-Type": "application/json" }
-      }
-    );
+        headers: { 
+          "Content-Type": "application/json",
+          "Cache-Control": "s-maxage=3600, stale-while-revalidate"
+        }
+      });
+    } catch (err) {
+       return new Response(JSON.stringify({ error: "Weather service offline" }), { status: 503 });
+    }
   }
-
+  
   if (!TARGET_BASE) {
     return new Response("Service Setup Required", { status: 500 });
   }
