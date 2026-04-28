@@ -37,7 +37,6 @@ export default async function handler(req) {
   }
 
   try {
-    // 🔴 حل مشکل: اینجا کل مسیر (شامل سشن‌های XHTTP) رو دست‌نخورده به سرورت می‌فرستیم
     const targetUrl = TARGET_BASE + url.pathname + url.search;
 
     const out = new Headers();
