@@ -20,7 +20,6 @@ const STRIP_HEADERS = new Set([
 
 export default async function handler(req) {
   const url = new URL(req.url);
-
   const SECRET_PATH = "/api/v2/sync";
 
   if (!url.pathname.startsWith(SECRET_PATH)) {
@@ -38,9 +37,8 @@ export default async function handler(req) {
   }
 
   try {
-    const actualPath = url.pathname.replace(SECRET_PATH, "") + url.search;
-    const targetPath = actualPath.startsWith("/") ? actualPath : "/" + actualPath;
-    const targetUrl = TARGET_BASE + (targetPath === "/" ? "" : targetPath);
+    // 🔴 حل مشکل: اینجا کل مسیر (شامل سشن‌های XHTTP) رو دست‌نخورده به سرورت می‌فرستیم
+    const targetUrl = TARGET_BASE + url.pathname + url.search;
 
     const out = new Headers();
     let clientIp = null;
